@@ -1,0 +1,11 @@
+{
+  "name": "first-express-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kacper-wisniewski/first-express-app.git",
+  "author": "Kacper Wiśniewski <kaka1341@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1"
+  }
+}
