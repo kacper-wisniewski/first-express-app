@@ -6,6 +6,7 @@
   "author": "Kacper Wiśniewski <kaka1341@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "express-handlebars": "3.1.0"
   }
 }
