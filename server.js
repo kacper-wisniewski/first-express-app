@@ -4,6 +4,8 @@ const hbs = require('express-handlebars');
 
 const app = express();
 
+app.use(express.urlencoded({ extended: false}));
+
 app.engine('.hbs', hbs());
 app.set('view engine', '.hbs');
 
@@ -11,8 +13,17 @@ const isLogged = () => {
   return true;  
 };
 
+app.post('/contact/send-message', (req, res) => {
+  const { author, sender, title, design, message} = req.body;
+  if (author && sender && title && message && design) {
+    res.render('contact', { isSent: true, fileName: design });
+  } else {
+    res.render('contact', { isError: true});
+  }
+});
+
 app.use('/user/:path', (req, res, next) => {
-  if (isLogged()) res.render(`user/${req.params.path}`, { layout: 'dark' });
+  if (isLogged()) res.render(`user/${req.params.path}`);
   else res.send('You need to be logged');
 });
 
@@ -27,6 +38,10 @@ app.get('/home', (req, res) => {
 app.get('/about', (req, res) => {
   res.render('about',);
 });
+app.get('/contact', (req, res) => {
+  res.render('contact',);
+});
+
 
 app.use(express.static(path.join(__dirname, '/public')));
 
