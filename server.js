@@ -1,10 +1,11 @@
 const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
-
+const formidable = require('formidable');
+const fs = require('fs');
 const app = express();
 
-app.use(express.urlencoded({ extended: false}));
+//app.use(bodyParser.urlencoded( { extended: 'true' }));
 
 app.engine('.hbs', hbs());
 app.set('view engine', '.hbs');
@@ -14,12 +15,30 @@ const isLogged = () => {
 };
 
 app.post('/contact/send-message', (req, res) => {
-  const { author, sender, title, design, message} = req.body;
-  if (author && sender && title && message && design) {
-    res.render('contact', { isSent: true, fileName: design });
-  } else {
-    res.render('contact', { isError: true});
-  }
+  const form = new formidable.IncomingForm();
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      console.error('Error', err)
+      throw err
+    }
+    for (const file of Object.entries(files)) {
+      const {author, sender, title, message} = fields;
+      const design = file[1].name;
+      if (author && sender && title && message && design) {
+        res.render('contact', { isSent: true, fileName: design });
+      } else {
+        res.render('contact', { isError: true});
+      }
+    }
+  });
+
+  form.on('fileBegin', function (name, file){
+    console.log(file.path);
+    console.log(file);
+    file.path = __dirname + '/public/uploads/' + file.name;
+    console.log(file.path);
+  });
 });
 
 app.use('/user/:path', (req, res, next) => {

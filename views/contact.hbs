@@ -5,7 +5,7 @@
 {{#if isSent}}
 <div class="isSent">Your message has been sent! File {{ fileName }} has been saved!</div>
 {{/if}}
-<form action="/contact/send-message" method="POST" enctype="application/x-www-form-urlencoded">
+<form action="/contact/send-message" method="POST" enctype="multipart/form-data">
   <label>
     Your name: <input type="text" name="author">
   </label>
@@ -16,7 +16,7 @@
     Title: <input type="text" name="title">
   </label>
   <label>
-    Project design: <input type="file" name="design" accept=".png,.jpg,.jpeg,.gif">
+    Project design: <input type="file" accept=".png,.jpg,.jpeg,.gif" name="design" >
   </label>
   <label>
     Message: <textarea name="message"></textarea>
