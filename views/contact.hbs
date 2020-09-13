@@ -1,9 +1,11 @@
 <h2>Contact me</h2>
 {{#if isError}}
 <div class="isError">Ups something go wrong! You can't leave fields empty!</div>
+
 {{/if}}
 {{#if isSent}}
 <div class="isSent">Your message has been sent! File {{ fileName }} has been saved!</div>
+<img class="sendedImage" src="/uploads/{{ fileName }}" alt="Here">
 {{/if}}
 <form action="/contact/send-message" method="POST" enctype="multipart/form-data">
   <label>

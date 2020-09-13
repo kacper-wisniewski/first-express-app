@@ -26,7 +26,7 @@ app.post('/contact/send-message', (req, res) => {
       const {author, sender, title, message} = fields;
       const design = file[1].name;
       if (author && sender && title && message && design) {
-        res.render('contact', { isSent: true, fileName: design });
+        res.render('contact', { isSent: true, fileName: design});
       } else {
         res.render('contact', { isError: true});
       }
@@ -34,10 +34,7 @@ app.post('/contact/send-message', (req, res) => {
   });
 
   form.on('fileBegin', function (name, file){
-    console.log(file.path);
-    console.log(file);
     file.path = __dirname + '/public/uploads/' + file.name;
-    console.log(file.path);
   });
 });
 
